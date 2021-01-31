@@ -14,7 +14,7 @@
   .knob-knob
     .knob-pointer-container(:style="{ transform: knobTransform }")
       span.knob-pointer
-  span.knob-tooltip(v-show="isDragging") {{ Math.round(modelValue) }}
+  span.knob-tooltip(v-show="isDragging") {{ modelValue.toFixed(3) }}
 </template>
 
 <script lang="ts">
@@ -37,17 +37,19 @@ export default defineComponent({
     'update:modelValue': (value: number) => true,
   },
 
-  setup() {
-    return draggable(0)
+  setup(props) {
+    return draggable(props.modelValue)
   },
 
   watch: {
+    // Save v-model to internal value on external update
     modelValue(newValue: number) {
-      this.value = newValue / 100
+      this.value = newValue
     },
 
+    // Update v-model
     value(newValue: number) {
-      this.$emit('update:modelValue', newValue * 100)
+      this.$emit('update:modelValue', newValue)
     },
   },
 
@@ -73,8 +75,8 @@ export default defineComponent({
 
 .knob-stroke {
   fill: #111111;
-  stroke: var(--bs-info);
-  stroke-width: 20%;
+  stroke: var(--bs-warning);
+  stroke-width: 10%;
   transform-origin: 50% 50% 0px;
   transform: rotate(-50deg) scale(-1);
 }
@@ -129,12 +131,12 @@ export default defineComponent({
   top: 7.5%;
   left: 50%;
   height: 15%;
-  width: 15%;
+  width: 10%;
   transform: translate(-50%);
-  background-color: var(--bs-info);
+  background-color: var(--bs-warning);
   border-radius: 2em;
-  //box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 1),
-  //  0px 0px 0px 1px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0px 0px 1px rgba(0, 0, 0, 1),
+    0px 0px 0px 1px rgba(255, 255, 255, 0.1);
 }
 
 .knob-tooltip {

@@ -24,10 +24,10 @@ export default defineComponent({
   components: { Knob },
   data() {
     return {
-      attack: 50,
-      delay: 50,
-      sustain: 50,
-      release: 50,
+      attack: 0,
+      delay: 0,
+      sustain: 0,
+      release: 0,
     }
   },
 })
