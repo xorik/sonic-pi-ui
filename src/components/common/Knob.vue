@@ -1,6 +1,6 @@
 <template lang="pug">
 // Based on https://www.jqueryscript.net/demo/Minimal-SVG-Based-Knob-Widget-For-jQuery-UI-Knob-js/
-.knob(@mousedown="mouseDown")
+.knob(@mousedown="mouseDown" @touchstart.prevent="touchStart")
   svg(viewBox="0 0 2 2")
     circle.knob-stroke(
       :style="{ 'stroke-dasharray': strokeStyle }"
