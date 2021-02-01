@@ -3,31 +3,29 @@ h4.text-center Envelope
 
 .row
   .col.text-center
-    Knob(v-model="attack")
-    p Attack
+    KnobControl(v-model="attack" title="Attack" :mode="mode")
   .col.text-center
-    Knob(v-model="delay")
-    p Delay
+    KnobControl(v-model="delay" title="Delay" :mode="mode")
   .col.text-center
-    Knob(v-model="sustain")
-    p Sustain
+    KnobControl(v-model="sustain" title="Sustain" :mode="mode")
   .col.text-center
-    Knob(v-model="release")
-    p Release
+    KnobControl(v-model="release" title="Release" :mode="mode")
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Knob from '@/components/common/Knob.vue'
+import KnobControl from '@/components/common/KnobControl.vue'
+import { Mode } from '@/composition/knob-mode'
 
 export default defineComponent({
-  components: { Knob },
+  components: { KnobControl },
   data() {
     return {
-      attack: 0,
+      attack: 10,
       delay: 0,
       sustain: 0,
       release: 0,
+      mode: Mode.Envelope,
     }
   },
 })

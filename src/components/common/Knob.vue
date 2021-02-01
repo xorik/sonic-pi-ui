@@ -14,21 +14,22 @@
   .knob-knob
     .knob-pointer-container(:style="{ transform: knobTransform }")
       span.knob-pointer
-  span.knob-tooltip(v-show="isDragging") {{ modelValue.toFixed(3) }}
+  span.knob-tooltip(v-show="isDragging") {{ tooltip }}
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { draggable } from '@/composition/draggable'
-
-function clamp(value: number, min: number, max: number) {
-  return min + value * (max - min)
-}
+import { mapNormNumber } from '@/components/common/map-number'
 
 export default defineComponent({
   props: {
     modelValue: {
       type: Number,
+      required: true,
+    },
+    tooltip: {
+      type: String,
       required: true,
     },
   },
@@ -55,11 +56,11 @@ export default defineComponent({
 
   computed: {
     knobTransform(): string {
-      return `rotate(${clamp(this.value, -140, 140)}deg)`
+      return `rotate(${mapNormNumber(this.value, -140, 140)}deg)`
     },
 
     strokeStyle(): string {
-      const ang = clamp(this.value, 0, (Math.PI * 2 * 7) / 9)
+      const ang = mapNormNumber(this.value, 0, (Math.PI * 2 * 7) / 9)
       return `${ang}px, ${Math.PI * 2}px`
     },
   },
